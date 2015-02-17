@@ -8,18 +8,20 @@ def connect():
     print "Here I am in the database" # used to see if we are actually calling this function properly
     return psycopg2.connect("dbname=tournament")
 
-
 def deleteMatches():
     """Remove all the match records from the database."""
     pass
 
 def deletePlayers():
     """Remove all the player records from the database."""
-    pass
+    c.execute(" DELETE FROM player ; ")
+    db.commit()
 
 def countPlayers():
     """Returns the number of players currently registered."""
-    pass
+    c.execute(""" SELECT count(*) AS playerCount FROM player ; """)
+    db.commit()
+    return (c.execute(""" SELECT count(*) AS playerCount FROM player ; """) )
 
 def registerPlayer(name):
     """Adds a player to the tournament database.
@@ -30,7 +32,8 @@ def registerPlayer(name):
     Args:
       name: the player's full name (need not be unique).
     """
-    pass
+    c.execute("""INSERT INTO player (pname) VALUES ('%s'); """ %str(name) )
+    db.commit()
 
 def playerStandings():
     """Returns a list of the players and their win records, sorted by wins.
@@ -76,6 +79,13 @@ def swissPairings():
 if __name__ == '__main__':
     db = connect()
     c = db.cursor()
-    c.execute("""SELECT *""")
-    db.cursor.close()
+    registerPlayer("Mike")
+    registerPlayer("Paula")
+    registerPlayer("Jenny")
+    registerPlayer("Tom")
+    registerPlayer("Michael")
+    print countPlayers()
+    # commented out but confirmed that deleting the players works
+    # deletePlayers()
+    # db.cursor.close()
     db.close

@@ -6,6 +6,7 @@
 -- You can write comments in this file by starting them with two dashes, like
 -- these lines here.
 
-CREATE DATABASE tournament;
-
-\c tournament;
+-- CREATE DATABASE tournament;
+CREATE TABLE player (
+        pname text,
+        id SERIAL )
