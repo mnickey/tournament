@@ -1,15 +1,17 @@
 #!/usr/bin/env python
 # tournament.py -- implementation of a Swiss-system tournament
-
 import psycopg2
+import bleach
 
 def connect():
     """Connect to the PostgreSQL database.  Returns a database connection."""
-    print "Here I am in the database" # used to see if we are actually calling this function properly
+    print "Here I am in the database"
+    # used to see if we are actually calling this function properly
     return psycopg2.connect("dbname=tournament")
 
 def deleteMatches():
     """Remove all the match records from the database."""
+    c.execute(""" DELETE FROM matches ;""")
     pass
 
 def deletePlayers():
@@ -19,28 +21,29 @@ def deletePlayers():
 
 def countPlayers():
     """Returns the number of players currently registered."""
-    c.execute(""" SELECT count(*) AS playerCount FROM player ; """)
+    c.execute(""" SELECT count(pname) AS playerCount FROM player; """)
+    # pcount = c.execute(""" SELECT count(pname) AS playerCount FROM player; """)
+    results = c.fetchall()
+    # print "results:", results
+    # print "results sub 0: ", results[0]
+    # print "results sub 0 0: ", results[0][0]
     db.commit()
-    return (c.execute(""" SELECT count(*) AS playerCount FROM player ; """) )
+    return (results[0][0])
 
 def registerPlayer(name):
     """Adds a player to the tournament database.
-
     The database assigns a unique serial id number for the player.  (This
     should be handled by your SQL database schema, not in your Python code.)
-  
     Args:
       name: the player's full name (need not be unique).
     """
-    c.execute("""INSERT INTO player (pname) VALUES ('%s'); """ %str(name) )
+    c.execute("""INSERT INTO player (pname, wins, losses) VALUES (%s, 0, 0); """ ,(bleach.clean(name), ) )
     db.commit()
 
 def playerStandings():
     """Returns a list of the players and their win records, sorted by wins.
-
     The first entry in the list should be the player in first place, or a player
     tied for first place if there is currently a tie.
-
     Returns:
       A list of tuples, each of which contains (id, name, wins, matches):
         id: the player's unique id (assigned by the database)
@@ -48,7 +51,10 @@ def playerStandings():
         wins: the number of matches the player has won
         matches: the number of matches the player has played
     """
-    pass
+    c.execute("""SELECT id, pname, wins, (wins + losses) as matches FROM player;""")
+    results = c.fetchall()
+    # print "results: ", results
+    return results
 
 def reportMatch(winner, loser):
     """Records the outcome of a single match between two players.
@@ -57,7 +63,9 @@ def reportMatch(winner, loser):
       winner:  the id number of the player who won
       loser:  the id number of the player who lost
     """
-    pass
+    c.execute("""UPDATE player set wins = wins + 1 WHERE id=(%s); """, (winner,) )
+    c.execute("""UPDATE player set losses = losses + 1 WHERE id=(%s); """, (loser,) )
+    db.commit()
  
 def swissPairings():
     """Returns a list of pairs of players for the next round of a match.
@@ -73,19 +81,37 @@ def swissPairings():
         name1: the first player's name
         id2: the second player's unique id
         name2: the second player's name
+
+    Theory:
+      Get the count from the DB sorted by wins
+      take a slice of the first two and make them a pair
+      remove them from the pre-populated count
+      continue to do so until all pairs are complete
     """
-    pass
+
+    from itertools import chain
+
+    c.execute(""" SELECT id, pname FROM player ORDER BY wins DESC;""")
+    results = c.fetchall()
+    pairs = []
+    for i in range(0, len(results), 2):
+        pair = tuple(chain(*results[i:i+2]))
+        pairs.append(pair)
+    print pairs
+    return pairs
+
+
+db = connect()
+c = db.cursor()
 
 if __name__ == '__main__':
-    db = connect()
-    c = db.cursor()
-    registerPlayer("Mike")
-    registerPlayer("Paula")
-    registerPlayer("Jenny")
-    registerPlayer("Tom")
-    registerPlayer("Michael")
-    print countPlayers()
+    # registerPlayer("Mike")
+    # registerPlayer("Paula")
+    # registerPlayer("Jenny")
+    # registerPlayer("Tom")
+    # registerPlayer("Michael")
+    print (countPlayers())
     # commented out but confirmed that deleting the players works
-    # deletePlayers()
+    deletePlayers()
     # db.cursor.close()
     db.close

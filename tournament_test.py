@@ -32,6 +32,7 @@ def testRegister():
     registerPlayer("Chandra Nalaar")
     c = countPlayers()
     if c != 1:
+        print "The number of players is: {}".format(c)
         raise ValueError(
             "After one player registers, countPlayers() should be 1.")
     print "4. After registering a player, countPlayers() returns 1."
