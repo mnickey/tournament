@@ -1,7 +1,7 @@
 # Swiss Style Tournament
 This repository shows how one can create a reusable Swiss Style tournament. 
 
-A Swiss-system tournament is a tournament which uses a non-elimination format. There are several rounds of competition, but considerably fewer rounds than in a round-robin tournament, so each competitor (team or individual) does not play every other competitor. Competitors meet one-to-one in each round and are paired using a predetermined set of rules designed to ensure that as far as possible a competitor plays competitors with the same current score, subject to not playing the same opponent more than once. The winner is the competitor with the highest aggregate points earned in all rounds. `http://en.wikipedia.org/wiki/Swiss-system_tournament`
+A Swiss-system tournament is a tournament which uses a non-elimination format. There are several rounds of competition, but considerably fewer rounds than in a round-robin tournament, so each competitor (team or individual) does not play every other competitor. Competitors meet one-to-one in each round and are paired using a predetermined set of rules designed to ensure that as far as possible a competitor plays competitors with the same current score, subject to not playing the same opponent more than once. The winner is the competitor with the highest aggregate points earned in all rounds. http://en.wikipedia.org/wiki/Swiss-system_tournament
 
 To run or use:
 1. Clone this repository at `https://github.com/mnickey/tournament`
