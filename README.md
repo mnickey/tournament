@@ -9,6 +9,7 @@ To run or use:
 2. CD into the repository you just cloned.
 3. To run, type in `python tournament.py`
 
+
 * Functionality: Passes the unit tests
 * Table Design: Has meaningful names
 * Column Design: Table columns have meaningful names
