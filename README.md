@@ -7,7 +7,7 @@ To run or use:
 
 1. Clone this repository at `https://github.com/mnickey/tournament`
 2. CD into the repository you just cloned.
-To run, type in `python tournament.py`
+3. To run, type in `python tournament.py`
 
 * Functionality: Passes the unit tests
 * Table Design: Has meaningful names
