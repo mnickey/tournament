@@ -13,7 +13,9 @@ To run or use:
 6. Enjoy 
 
 If all goes well you should see something similar to the following:
-```vagrant@vagrant-ubuntu-trusty-32:/vagrant/tournament$ python tournament_test.py 
+
+```
+vagrant@vagrant-ubuntu-trusty-32:/vagrant/tournament$ python tournament_test.py 
 Here I am in the database
 1. Old matches can be deleted.
 2. Player records can be deleted.
