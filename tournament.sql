@@ -5,6 +5,7 @@
 --
 -- You can write comments in this file by starting them with two dashes, like
 -- these lines here.
+DROP DATABASE  IF EXISTS tournament;
 
 CREATE DATABASE tournament;
 
@@ -14,17 +15,3 @@ CREATE TABLE player (
         losses INTEGER,
         id SERIAL PRIMARY KEY );
 
-# These tables are not used in the final implementation as they are not needed
-CREATE TABLE matches (
-        id integer,
-        FOREIGN KEY (id) REFERENCES player(id),
-        match_id INTEGER
-);
-
-# These tables are not used in the final implementation as they are not needed
-CREATE TABLE results (
-        id SERIAL PRIMARY KEY ,
-        FOREIGN KEY (id) REFERENCES player(id),
-        wins INTEGER,
-        losses INTEGER
-        );

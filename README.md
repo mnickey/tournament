@@ -3,14 +3,26 @@ This repository shows how one can create a reusable Swiss Style tournament.
 
 A Swiss-system tournament is a tournament which uses a non-elimination format. There are several rounds of competition, but considerably fewer rounds than in a round-robin tournament, so each competitor (team or individual) does not play every other competitor. Competitors meet one-to-one in each round and are paired using a predetermined set of rules designed to ensure that as far as possible a competitor plays competitors with the same current score, subject to not playing the same opponent more than once. The winner is the competitor with the highest aggregate points earned in all rounds. http://en.wikipedia.org/wiki/Swiss-system_tournament
 
-To run or use:
+Setup:
 
 1. Clone this repository at `https://github.com/mnickey/tournament`
-2. Ensure that your vagrant is up and running. To do so, type in vagrant up where your vagrant file is stored.
-3. This is followed by vagrant ssh
+2. Ensure that your vagrant `https://www.vagrantup.com/downloads` is up and running. To do so, type in `vagrant up` where your vagrant file is stored.
+3. This is followed by `vagrant ssh`
 4. Type in `cd /vagrant/tournament/`
-5. To run, type in `python tournament_test.py`
-6. Enjoy 
+
+Creating the Database:
+
+1. Inside your vagrant shell, start up a Postgres shell by typing in `psql`. 
+2. Create the database by typing `createdb tournament`
+3. Type `psql -d tournament -f tournament.sql`. This takes the SQL file and updates the tournament.db with the tables and relatioships that are outlined in the SQL file.
+4. To connect to the database, you can type in `\c tournament`. Note that this is not required to run the python script but it's a good way to explore the DB itself.
+
+To run or use:
+
+With the vagrant VM running and the database created, we can see the python scripts working by doing the following. 
+
+1. To run, type in `python tournament_test.py`
+2. Enjoy 
 
 If all goes well you should see something similar to the following:
 
