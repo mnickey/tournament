@@ -13,15 +13,15 @@ Setup:
 Creating the Database:
 
 1. Inside your vagrant shell, start up a Postgres shell by typing in `psql`. 
-2. Create the database by typing `createdb tournament`
-3. Type `psql -d tournament -f tournament.sql`. This takes the SQL file and updates the tournament.db with the tables and relatioships that are outlined in the SQL file.
-4. To connect to the database, you can type in `\c tournament`. Note that this is not required to run the python script but it's a good way to explore the DB itself.
+2. Create the database by typing `create database tournament`
+3. Type `psql -d tournament -f tournament.sql`. This takes the SQL file and updates the tournament.db with the tables and relationships that are outlined in the SQL file.
+4. To connect to the database, type in `\c tournament`. 
 
 To run or use:
 
-With the vagrant VM running and the database created, we can see the python scripts working by doing the following. 
+With the vagrant VM running, the database created and you've connected to the database, we can see the python scripts working by doing the following. 
 
-1. To run, type in `python tournament_test.py`
+1. To run, type in `python tournament_test.py` in your terminal window. Note that this is different then the Postgres database window.
 2. Enjoy 
 
 If all goes well you should see something similar to the following:
